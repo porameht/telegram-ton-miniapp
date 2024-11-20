@@ -1,0 +1,14 @@
+{
+  "url": "https://telegram-ton-bot.onrender.com",
+  "name": "TON Connect Bot",
+  "iconUrl": "https://telegram-ton-bot.onrender.com/icon.png",
+  "termsOfUseUrl": "https://telegram-ton-bot.onrender.com/terms",
+  "privacyPolicyUrl": "https://telegram-ton-bot.onrender.com/privacy",
+  
+  "items": [
+    {
+      "name": "telegram_bot",
+      "url": "https://t.me/ad_aut_bot"
+    }
+  ]
+} 

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Create Project - TON Connect Bot</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            color: var(--tg-theme-text-color);
+            background: var(--tg-theme-bg-color);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--tg-theme-hint-color);
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--tg-theme-hint-color);
+            border-radius: 8px;
+            background: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+        }
+        .facebook-section {
+            border: 1px solid var(--tg-theme-hint-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:disabled {
+            opacity: 0.6;
+        }
+        .watermark-section {
+            margin-top: 10px;
+            padding-left: 15px;
+            border-left: 2px solid var(--tg-theme-hint-color);
+        }
+        .checkbox-group {
+            margin-top: 15px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        input[type="checkbox"] {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-group">
+        <label for="projectName">Project Name*</label>
+        <input type="text" id="projectName" placeholder="Enter project name" required>
+    </div>
+
+    <div class="facebook-section">
+        <div class="section-title">Facebook Credentials</div>
+        
+        <div class="form-group">
+            <label for="appId">App ID*</label>
+            <input type="text" id="appId" placeholder="Enter Facebook App ID" required>
+        </div>
+
+        <div class="form-group">
+            <label for="appSecret">App Secret*</label>
+            <input type="password" id="appSecret" placeholder="Enter App Secret" required>
+        </div>
+
+        <div class="form-group">
+            <label for="accessToken">Access Token*</label>
+            <input type="text" id="accessToken" placeholder="Enter Access Token" required>
+        </div>
+
+        <div class="form-group">
+            <label for="adAccountId">Ad Account ID*</label>
+            <input type="text" id="adAccountId" placeholder="Enter Ad Account ID" required>
+        </div>
+
+        <div class="form-group">
+            <label for="accountSuffix">Account Suffix*</label>
+            <input type="text" id="accountSuffix" placeholder="Enter Account Suffix" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pixelId">Pixel ID</label>
+            <input type="text" id="pixelId" placeholder="Enter Pixel ID">
+        </div>
+
+        <div class="form-group">
+            <label for="linkUrl">Link URL</label>
+            <input type="url" id="linkUrl" placeholder="Enter Link URL">
+        </div>
+
+        <div class="form-group">
+            <label for="pageId">Page ID</label>
+            <input type="text" id="pageId" placeholder="Enter Page ID">
+        </div>
+
+        <div class="watermark-section">
+            <div class="section-title">Watermark Settings</div>
+            
+            <div class="form-group">
+                <label for="watermarkText">Watermark Text</label>
+                <input type="text" id="watermarkText" placeholder="Enter watermark text">
+            </div>
+
+            <div class="form-group">
+                <label for="watermarkUrl">Watermark URL</label>
+                <input type="url" id="watermarkUrl" placeholder="Enter watermark URL">
+            </div>
+
+            <div class="form-group">
+                <label for="watermarkColor">Color</label>
+                <input type="color" id="watermarkColor">
+            </div>
+
+            <div class="form-group">
+                <label for="watermarkFontSize">Font Size</label>
+                <input type="number" id="watermarkFontSize" min="8" max="72" placeholder="Font size in px">
+            </div>
+
+            <div class="form-group">
+                <label for="watermarkOpacity">Opacity</label>
+                <input type="range" id="watermarkOpacity" min="0" max="100" value="100">
+            </div>
+
+            <div class="form-group">
+                <label for="watermarkPosition">Position</label>
+                <select id="watermarkPosition">
+                    <option value="top-left">Top Left</option>
+                    <option value="top-right">Top Right</option>
+                    <option value="bottom-left">Bottom Left</option>
+                    <option value="bottom-right">Bottom Right</option>
+                    <option value="center">Center</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkbox-group">
+        <label class="checkbox-label">
+            <input type="checkbox" id="isActive" checked>
+            <span>Active Project</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="isLogging" checked>
+            <span>Enable Logging</span>
+        </label>
+    </div>
+
+    <button onclick="submitForm()" id="submitBtn">Create Project</button>
+
+    <script>
+        // Initialize Telegram Web App
+        let tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.enableClosingConfirmation();
+
+        // Set theme colors immediately on load
+        document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
+        document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color);
+        document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color);
+        document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
+        document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color);
+
+        // Validate required fields before enabling submit
+        function validateForm() {
+            const projectName = document.getElementById('projectName').value.trim();
+            const appId = document.getElementById('appId').value.trim();
+            const appSecret = document.getElementById('appSecret').value.trim();
+            const accessToken = document.getElementById('accessToken').value.trim();
+            const adAccountId = document.getElementById('adAccountId').value.trim();
+            const accountSuffix = document.getElementById('accountSuffix').value.trim();
+
+            return projectName && appId && appSecret && accessToken && adAccountId && accountSuffix;
+        }
+
+        // Add input listeners to all required fields
+        const requiredFields = ['projectName', 'appId', 'appSecret', 'accessToken', 'adAccountId', 'accountSuffix'];
+        requiredFields.forEach(fieldId => {
+            document.getElementById(fieldId).addEventListener('input', () => {
+                document.getElementById('submitBtn').disabled = !validateForm();
+            });
+        });
+
+        // Initialize submit button state
+        document.getElementById('submitBtn').disabled = !validateForm();
+
+        function getWatermarkData() {
+            const text = document.getElementById('watermarkText').value.trim();
+            if (!text) return null;
+            
+            return {
+                text,
+                url: document.getElementById('watermarkUrl').value.trim() || null,
+                color: document.getElementById('watermarkColor').value || null,
+                font_size: parseInt(document.getElementById('watermarkFontSize').value) || null,
+                opacity: parseInt(document.getElementById('watermarkOpacity').value) || null,
+                position: document.getElementById('watermarkPosition').value
+            };
+        }
+
+        function getFacebookCredentials() {
+            const appId = document.getElementById('appId').value.trim();
+            if (!appId) return null;
+
+            return {
+                app_id: appId,
+                app_secret: document.getElementById('appSecret').value.trim(),
+                access_token: document.getElementById('accessToken').value.trim(),
+                ad_account_id: document.getElementById('adAccountId').value.trim(),
+                account_suffix: document.getElementById('accountSuffix').value.trim(),
+                pixel_id: document.getElementById('pixelId').value.trim() || null,
+                link_url: document.getElementById('linkUrl').value.trim() || null,
+                page_id: document.getElementById('pageId').value.trim() || null,
+                watermark: getWatermarkData()
+            };
+        }
+
+        function submitForm() {
+            if (!validateForm()) {
+                tg.showPopup({
+                    title: 'Validation Error',
+                    message: 'Please fill in all required fields',
+                    buttons: [{type: 'ok'}]
+                });
+                return;
+            }
+
+            const fbCreds = getFacebookCredentials();
+            const data = {
+                name: document.getElementById('projectName').value.trim(),
+                facebook_credentials: {
+                    "default": fbCreds
+                },
+                is_active: document.getElementById('isActive').checked,
+                is_logging: document.getElementById('isLogging').checked
+            };
+
+            try {
+                document.getElementById('submitBtn').disabled = true;
+                tg.sendData(JSON.stringify(data));
+                tg.close();
+            } catch (error) {
+                tg.showPopup({
+                    title: 'Error',
+                    message: 'Failed to submit form: ' + error.message,
+                    buttons: [{type: 'ok'}]
+                });
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html> 
