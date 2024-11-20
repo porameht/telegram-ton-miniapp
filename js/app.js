@@ -11,7 +11,7 @@ export function initApp() {
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
-    tg.enableClosingConfirmation();
+    // tg.enableClosingConfirmation();
 
     // Initialize theme
     initTheme(tg);
@@ -20,7 +20,7 @@ export function initApp() {
     initFormValidation();
 
     // Attach submit handler
-    window.submitForm = function() {
+    window.submitForm = async function() {
         if (!validateForm()) {
             tg.showPopup({
                 title: 'Validation Error',
@@ -43,8 +43,10 @@ export function initApp() {
         try {
             document.getElementById('submitBtn').disabled = true;
             const jsonData = JSON.stringify(data);
-            tg.sendData(jsonData);
-            tg.close();
+            await tg.sendData(jsonData);
+            setTimeout(() => {
+                tg.close();
+            }, 500);
         } catch (error) {
             console.error('Error submitting form:', error);
             tg.showPopup({
