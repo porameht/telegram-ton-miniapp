@@ -3,10 +3,6 @@ import { validateForm, initFormValidation } from './validation.js';
 import { getFacebookCredentials } from './formData.js';
 
 export function initApp() {
-    if (!window.Telegram || !window.Telegram.WebApp) {
-        alert('🚨 Telegram Web App is not properly initialized');
-        return;
-    }
 
     const tg = window.Telegram.WebApp;
     tg.ready();
