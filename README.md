@@ -1,59 +1,91 @@
-<p align="center">
-  <br>
-  <img width="240" src="./assets/tapps.png" alt="logo of telegram web apps">
-  <br>
-  <br>
-</p>
+# 📱 Telegram Mini App - Form Data Handler
 
-# Telegram Mini Apps Basic Example
-This is a basic and straightforward Telegram Mini App(TMA) implemented using plain JavaScript, HTML, and CSS. This project aims to provide a minimalistic example of how to create a simple TWA and launch it within Telegram without relying on complex build tools or bleeding-edge libraries.
+A lightweight, vanilla JavaScript implementation of a Telegram Mini App (TMA) that seamlessly handles form data submission to Telegram bots.
 
-- App is available via direct link: https://t.me/simple_telegram_mini_app_bot/app
-- Or you can launch app with a bot menu button: https://t.me/simple_telegram_mini_app_bot
-- Deployment URL: [https://twa-dev.github.io/simple-telegram-web-app/](https://telegram-mini-apps-dev.github.io/vanilla-js-boilerplate/)
+## 🌟 Features
 
-## Features
-- Minimalistic user interface.
-- No external libraries or frameworks used.
-- Easy to understand and modify.
+- Pure JavaScript implementation - no frameworks required
+- Seamless integration with Telegram Mini App platform
+- Simple and efficient form data handling
+- Direct communication with Telegram bots
+- Responsive and user-friendly interface
 
-## Getting Started
+## 🚀 Quick Start
+
+1. Clone the repository:
+```
+git clone https://github.com/porameht/telegram-ton-miniapp.git
+```
 
 ### Prerequisites
 
-To run this example, you'll need a modern web browser with JavaScript enabled.
+- Telegram Bot Token
+- Basic knowledge of Telegram Mini Apps
+- Web server for hosting
 
-### Installation
+## 📋 Setup
 
-1. Clone this repository to your local machine:
+1. Configure your Telegram Bot:
+   - Create a bot via [@BotFather](https://t.me/botfather)
+   - Get your bot token
+   - Set up your Mini App
 
-   ```bash
-   git clone https://github.com/Telegram-Mini-Apps-Dev/vanilla-js-boilerplate
+2. Update configuration:
+   - Open `config.js`
+   - Add your bot token and other required parameters
 
-2. Navigate to the project directory:
+3. Deploy to your web server
 
-	```bash
-	cd vanilla-js-boilerplate
+## 💻 Usage
 
-Open index.html in your preferred code editor or IDE.
+```javascript
+// Initialize Telegram Mini App
+const tg = window.Telegram.WebApp;
+// Handle form submission
+form.addEventListener('submit', async (e) => {
+e.preventDefault();
+const formData = new FormData(form);
+// Send to Telegram bot
+await sendToBot(formData);
+});
+```
 
-### Usage
-1. Open index.html in your preferred code editor or IDE.
-2. Make your changes
-3. Create your own GitHub repository, commit and push your updates.
-4. Go to your repository GitHub page and open Settings. Check the Pages tab and Build and deployment section. If GitHub Actions option was selected, assets should be deployed to Pages and there will be an URL like `https://<username>.github.io/simple-telegram-mini-app/`. You can copy this URL and use it with [BotFather](https://tg.me/BotFather) bot to create your very own TWA.
 
-### Customization
-Feel free to customize this web app to suit your needs. You can modify the HTML, CSS, and JavaScript files as required.
+## 🔧 Configuration
 
-## Contributing
-If you'd like to contribute to this project, please follow these steps:
+Configure your application by modifying the following parameters:
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with descriptive messages.
-4. Push your branch to your fork.
-5. Create a pull request to the main repository's main branch.
+```javascript
+const config = {
+botToken: 'YOUR_BOT_TOKEN',
+// Add other configuration options
+};
+```
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📚 Documentation
+
+For detailed information about Telegram Mini Apps:
+- [Official Telegram Mini Apps Documentation](https://core.telegram.org/bots/webapps)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Telegram Team for the Mini Apps platform
+- Contributors and supporters
+
+---
+
+Made with ❤️ by fr4nk
