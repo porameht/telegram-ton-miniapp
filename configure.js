@@ -1,9 +1,7 @@
-import axios from "axios";
-import { createInterface } from "readline";
-import fs from "fs";
-import { promisify } from "util";
+const axios = require("axios");
+const readline = require("readline");
 
-const rl = createInterface({
+const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
